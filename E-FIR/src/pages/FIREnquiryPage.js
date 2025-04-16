@@ -60,6 +60,8 @@ const FIREnquiryPage = ({ user, logout }) => {
   // Function to get status badge color
   const getStatusBadge = (status) => {
     switch (status?.toLowerCase()) {
+      case 'filed':
+        return 'info';
       case 'under investigation':
         return 'warning';
       case 'resolved':
@@ -68,8 +70,6 @@ const FIREnquiryPage = ({ user, logout }) => {
         return 'secondary';
       case 'rejected':
         return 'danger';
-      case 'filed':
-        return 'info';
       default:
         return 'primary';
     }
@@ -267,31 +267,58 @@ const FIREnquiryPage = ({ user, logout }) => {
                         <i className="fas fa-clipboard-list me-2 text-primary"></i>
                         Status Timeline
                       </h5>
+                      
+                      {/* Status Timeline */}
                       <div className="position-relative">
                         <div className="position-absolute" style={{left: '9px', top: '0', bottom: '0', width: '2px', backgroundColor: '#dee2e6'}}></div>
                         
+                        {/* Initial Filed status */}
                         <div className="d-flex mb-3">
-                          <div className="bg-primary rounded-circle d-flex align-items-center justify-content-center" style={{width: '20px', height: '20px', zIndex: 1}}>
+                          <div className="bg-info rounded-circle d-flex align-items-center justify-content-center" style={{width: '20px', height: '20px', zIndex: 1}}>
                           </div>
                           <div className="ms-3">
-                            <div className="fw-bold">Filed</div>
-                            <div className="text-muted small">{new Date(firData.createdAt).toLocaleDateString()}</div>
+                            <div className="d-flex align-items-center">
+                              <Badge bg="info" className="me-2">Filed</Badge>
+                              <small className="text-muted">{new Date(firData.createdAt).toLocaleDateString()}</small>
+                            </div>
+                            <p className="mb-0 mt-1">FIR has been filed successfully.</p>
                           </div>
                         </div>
                         
-                        {firData.status.toLowerCase() !== 'filed' && (
-                          <div className="d-flex">
-                            <div className={`bg-${getStatusBadge(firData.status)} rounded-circle d-flex align-items-center justify-content-center`} style={{width: '20px', height: '20px', zIndex: 1}}>
-                            </div>
-                            <div className="ms-3">
-                              <div className="fw-bold">{firData.status}</div>
-                              <div className="text-muted small">
-                                {firData.statusUpdateDate 
-                                  ? new Date(firData.statusUpdateDate).toLocaleDateString() 
-                                  : 'Date not available'}
+                        {/* Show status updates if available */}
+                        {firData.statusUpdates && firData.statusUpdates.length > 0 ? (
+                          firData.statusUpdates.map((update, index) => (
+                            <div key={index} className="d-flex mb-3">
+                              <div className={`bg-${getStatusBadge(update.status)} rounded-circle d-flex align-items-center justify-content-center`} style={{width: '20px', height: '20px', zIndex: 1}}>
+                              </div>
+                              <div className="ms-3">
+                                <div className="d-flex align-items-center">
+                                  <Badge bg={getStatusBadge(update.status)} className="me-2">{update.status}</Badge>
+                                  <small className="text-muted">{new Date(update.date).toLocaleDateString()}</small>
+                                </div>
+                                <p className="mb-0 mt-1">{update.comment || `Status updated to ${update.status}`}</p>
                               </div>
                             </div>
-                          </div>
+                          ))
+                        ) : (
+                          // If FIR status is different from "Filed" but no updates, add a single update entry
+                          firData.status.toLowerCase() !== 'filed' && (
+                            <div className="d-flex mb-3">
+                              <div className={`bg-${getStatusBadge(firData.status)} rounded-circle d-flex align-items-center justify-content-center`} style={{width: '20px', height: '20px', zIndex: 1}}>
+                              </div>
+                              <div className="ms-3">
+                                <div className="d-flex align-items-center">
+                                  <Badge bg={getStatusBadge(firData.status)} className="me-2">{firData.status}</Badge>
+                                  <small className="text-muted">
+                                    {firData.statusUpdateDate 
+                                      ? new Date(firData.statusUpdateDate).toLocaleDateString() 
+                                      : new Date().toLocaleDateString()}
+                                  </small>
+                                </div>
+                                <p className="mb-0 mt-1">Status updated to {firData.status}</p>
+                              </div>
+                            </div>
+                          )
                         )}
                       </div>
                     </Card.Body>

@@ -139,7 +139,7 @@ const LoginPage = ({ login }) => {
                 </p>
                 <p className="mb-0">
                   <small className="text-muted">
-                    Demo credentials: user@example.com / password
+                    
                   </small>
                 </p>
               </div>

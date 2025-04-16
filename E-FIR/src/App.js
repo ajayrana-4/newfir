@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.css';
 
-// Pages
+// User Pages
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -15,10 +15,16 @@ import MYFIRsPage from './pages/MYFIRsPage';
 import FIRDetailsPage from './pages/FIRDetailsPage';
 import ProfilePage from './pages/ProfilePage';
 
+// Admin Pages
+import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminRegisterPage from './pages/admin/AdminRegisterPage';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminFIRDetailPage from './pages/admin/AdminFIRDetailsPage';
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   
   // Check for stored user on app load
   useEffect(() => {
@@ -41,7 +47,7 @@ function App() {
         localStorage.removeItem('user');
       }
     }
-    setLoading(false); // Set loading to false after checking authentication
+    setLoading(false);
   }, []);
   
   // Login function with fixed user data structure
@@ -60,11 +66,13 @@ function App() {
     setIsAuthenticated(true);
   };
   
+  
   // Logout function
   const logout = () => {
     localStorage.removeItem('user');
     setUser(null);
     setIsAuthenticated(false);
+    // We don't need to navigate here as the Header component will handle that
   };
   
   // Update user function for profile changes
@@ -114,12 +122,13 @@ function App() {
     <Router>
       <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
+        {/* User Routes */}
         <Route path="/" element={<HomePage user={user} logout={logout} />} />
         <Route path="/login" element={<LoginPage login={login} />} />
         <Route path="/register" element={<RegisterPage login={login} />} />
         <Route path="/enquiry" element={<EnquiryPage user={user} logout={logout} />} />
         
-        {/* Protected Routes */}
+        {/* Protected User Routes */}
         <Route 
           path="/register-fir" 
           element={
@@ -160,6 +169,13 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/register" element={<AdminRegisterPage />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/fir/:id" element={<AdminFIRDetailPage />} />
+        
         {/* Catch all - redirect to home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

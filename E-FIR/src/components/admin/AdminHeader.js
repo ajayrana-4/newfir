@@ -6,11 +6,8 @@ const Header = ({ user, logout, isAdmin = false }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    if (logout) {
-      logout();
-      // Always navigate to home page on logout
-      navigate('/');
-    }
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -22,9 +19,9 @@ const Header = ({ user, logout, isAdmin = false }) => {
             width="30"
             height="30"
             className="d-inline-block align-top me-2"
-            alt="E-FIR Logo"
+            alt="eFIR Logo"
           />
-          {isAdmin ? 'E-FIR Police Admin' : 'E-FIR Platform'}
+          {isAdmin ? 'eFIR Police Admin' : 'eFIR Platform'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -50,31 +47,26 @@ const Header = ({ user, logout, isAdmin = false }) => {
             )}
           </Nav>
           <Nav>
-            {/* Admin link and login/register buttons when no user is logged in */}
-            {!user && !isAdmin && (
-              <div className="d-flex">
-                <Button as={Link} to="/admin/login" variant="outline-light" className="me-2">
-                  Admin Portal
-                </Button>
-                <Button as={Link} to="/login" variant="outline-light" className="me-2">Login</Button>
-                <Button as={Link} to="/register" variant="light">Register</Button>
-              </div>
+            {/* Admin link for everyone */}
+            {!isAdmin && (
+              <Nav.Link as={Link} to="/admin/login" className="me-3">
+                Admin Portal
+              </Nav.Link>
             )}
             
-            {/* User dropdown when user is logged in */}
-            {user && (
+            {user ? (
               <NavDropdown title={`Welcome, ${user.name}`} id="basic-nav-dropdown" align="end">
-                {!isAdmin && <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>}
+                <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
-            )}
-            
-            {/* Show logout button for admin if logged in */}
-            {isAdmin && !user && (
-              <Button variant="outline-light" onClick={handleLogout}>
-                Logout
-              </Button>
+            ) : (
+              !isAdmin && (
+                <div className="d-flex">
+                  <Button as={Link} to="/login" variant="outline-light" className="me-2">Login</Button>
+                  <Button as={Link} to="/register" variant="light">Register</Button>
+                </div>
+              )
             )}
           </Nav>
         </Navbar.Collapse>

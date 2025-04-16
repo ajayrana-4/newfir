@@ -100,17 +100,35 @@ const FIRDetailsPage = ({ user, logout }) => {
             <h5 className="mb-0">FIR #{fir.firNumber}</h5>
           </Card.Header>
           <Card.Body>
+            {/* Description Section - Prominently displayed */}
+            <Card className="mb-4 bg-light border-0">
+              <Card.Header className="bg-light border-bottom">
+                <h6 className="mb-0 text-primary">
+                  <i className="fas fa-file-alt me-2"></i>
+                  Complaint Description
+                </h6>
+              </Card.Header>
+              <Card.Body>
+                <div className="p-3 bg-white border rounded">
+                  <p className="mb-0 lead">{fir.description}</p>
+                </div>
+              </Card.Body>
+            </Card>
+            
             <Row className="mb-4">
               <Col md={6}>
                 <h6 className="text-muted">Complainant Information</h6>
                 <p className="mb-1"><strong>Name:</strong> {fir.complainantName}</p>
                 <p className="mb-1"><strong>Contact:</strong> {fir.complainantPhone}</p>
-                <p><strong>Email:</strong> {fir.complainantEmail}</p>
+                <p><strong>Email:</strong> {user.email}</p>
               </Col>
               <Col md={6}>
                 <h6 className="text-muted">Filing Information</h6>
                 <p className="mb-1"><strong>Filed On:</strong> {new Date(fir.createdAt).toLocaleDateString()}</p>
                 <p><strong>Current Status:</strong> {fir.status}</p>
+                {fir.statusUpdateDate && (
+                  <p><strong>Last Updated:</strong> {new Date(fir.statusUpdateDate).toLocaleDateString()}</p>
+                )}
               </Col>
             </Row>
 
@@ -124,27 +142,47 @@ const FIRDetailsPage = ({ user, logout }) => {
               </Col>
             </Row>
 
-            <Row className="mb-4">
-              <Col md={12}>
-                <h6 className="text-muted">Description</h6>
-                <p className="bg-light p-3 rounded">{fir.description}</p>
-              </Col>
-            </Row>
-
-            {fir.updates && fir.updates.length > 0 && (
+            {/* Status Updates Timeline - Only show if there are updates */}
+            {fir.statusUpdates && fir.statusUpdates.length > 0 && (
               <Row>
                 <Col md={12}>
-                  <h6 className="text-muted">Status Updates</h6>
-                  <div className="border rounded">
-                    {fir.updates.map((update, index) => (
-                      <div key={index} className={`p-3 ${index < fir.updates.length - 1 ? 'border-bottom' : ''}`}>
-                        <div className="d-flex justify-content-between">
-                          <strong>{update.status}</strong>
-                          <small>{new Date(update.date).toLocaleDateString()}</small>
+                  <h6 className="text-muted mb-3">Status Timeline</h6>
+                  <div className="border rounded bg-light p-3">
+                    <div className="position-relative">
+                      <div className="position-absolute" style={{left: '9px', top: '0', bottom: '0', width: '2px', backgroundColor: '#dee2e6'}}></div>
+                      
+                      {/* Initial Filed Status */}
+                      <div className="d-flex mb-4 position-relative">
+                        <div className="bg-info rounded-circle d-flex align-items-center justify-content-center" style={{width: '20px', height: '20px', zIndex: 1}}>
                         </div>
-                        <p className="mb-0 mt-1">{update.comment}</p>
+                        <div className="ms-3">
+                          <div className="d-flex justify-content-between">
+                            <Badge bg="info" className="mb-2">Filed</Badge>
+                            <small>{new Date(fir.createdAt).toLocaleDateString()}</small>
+                          </div>
+                          <div className="bg-white p-2 rounded border">
+                            <p className="mb-0">Your FIR has been filed successfully.</p>
+                          </div>
+                        </div>
                       </div>
-                    ))}
+                      
+                      {/* Status Updates */}
+                      {fir.statusUpdates.map((update, index) => (
+                        <div key={index} className="d-flex mb-4 position-relative">
+                          <div className={`bg-${getStatusBadgeColor(update.status)} rounded-circle d-flex align-items-center justify-content-center`} style={{width: '20px', height: '20px', zIndex: 1}}>
+                          </div>
+                          <div className="ms-3">
+                            <div className="d-flex justify-content-between">
+                              <Badge bg={getStatusBadgeColor(update.status)} className="mb-2">{update.status}</Badge>
+                              <small>{new Date(update.date).toLocaleDateString()}</small>
+                            </div>
+                            <div className="bg-white p-2 rounded border">
+                              <p className="mb-0">{update.comment || `Your FIR status has been updated to ${update.status}.`}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -156,6 +194,7 @@ const FIRDetailsPage = ({ user, logout }) => {
                 Back to My FIRs
               </Button>
               <Button variant="primary" onClick={() => window.print()}>
+                <i className="fas fa-print me-2"></i>
                 Print FIR
               </Button>
             </div>

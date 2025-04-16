@@ -9,7 +9,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col md={6} className="mb-3 mb-md-0">
-            <h6>eFIR - Advanced FIR Management Platform</h6>
+            <h6>E-FIR - Advanced FIR Management Platform</h6>
             <p className="text-muted small mb-0">
               Streamlining the FIR process for citizens and police departments
             </p>
@@ -35,7 +35,7 @@ const Footer = () => {
         <hr className="my-3 opacity-25" />
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
           <p className="text-muted small mb-2 mb-md-0">
-            &copy; {currentYear} eFIR. All rights reserved.
+            &copy; {currentYear} E-FIR. All rights reserved.
           </p>
           <div className="social-links">
             <a href="#" className="text-white me-3"><i className="fab fa-facebook-f"></i></a>

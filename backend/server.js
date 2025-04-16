@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const firRoutes = require('./routes/firRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 dotenv.config();
 
@@ -40,6 +41,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // API routes
 app.use('/api/users', userRoutes);
 app.use('/api/firs', firRoutes);
+app.use('/api/admin', adminRoutes); // Add admin routes
 
 // Root route
 app.get('/', (req, res) => {
