@@ -1,0 +1,116 @@
+/* Main styling for the eFIR Application */
+
+/* General styling */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  background-color: #e0e0e0; /* Light gray background */
+}
+
+/* Make footer stick to bottom */
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+/* Bootstrap overrides and extensions */
+.btn-primary {
+  background-color: #1a3a6c;
+  border-color: #1a3a6c;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #132c52;
+  border-color: #132c52;
+}
+
+.bg-primary {
+  background-color: #1a3a6c !important;
+}
+
+.text-primary {
+  color: #1a3a6c !important;
+}
+
+.btn-outline-primary {
+  color: #1a3a6c;
+  border-color: #1a3a6c;
+}
+
+.btn-outline-primary:hover {
+  background-color: #1a3a6c;
+  border-color: #1a3a6c;
+}
+
+/* Card styling */
+.card {
+  border-radius: 0.5rem;
+  border: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Form styling */
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(26, 58, 108, 0.25);
+}
+
+/* For FIR status badges */
+.badge {
+  padding: 0.5em 0.8em;
+  font-weight: 500;
+}
+
+/* Custom table styles */
+.table th {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Statistics cards */
+.stat-card {
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom shadows */
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+}
+
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+/* Responsive font sizes */
+h1, .h1 {
+  font-size: calc(1.375rem + 1.5vw);
+}
+
+h2, .h2 {
+  font-size: calc(1.325rem + .9vw);
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2.5rem;
+  }
+}
