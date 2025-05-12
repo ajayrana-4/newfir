@@ -117,7 +117,7 @@ const RegisterPage = ({ login }) => {
             <Card.Body className="p-4">
               <div className="text-center mb-4">
                 <img
-                  src="/assets/images/police-badge.png"
+                  src="/assets/images/logo.png"
                   alt="eFIR Logo"
                   width="80"
                   className="mb-3"

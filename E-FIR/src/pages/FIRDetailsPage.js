@@ -24,7 +24,7 @@ const FIRDetailsPage = ({ user, logout }) => {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/firs/${id}`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
-        setFir(response.data);
+        setFir(response.data); // Assuming the API returns the FIR details in the expected format
       } catch (error) {
         console.error('Error loading FIR details:', error);
         setError('An error occurred while loading FIR details');

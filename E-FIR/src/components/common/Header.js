@@ -18,13 +18,13 @@ const Header = ({ user, logout, isAdmin = false }) => {
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img
-            src="/assets/images/police-badge.png"
-            width="30"
-            height="30"
+            src="/assets/images/logo.png"
+            width="50"
+            height="50"
             className="d-inline-block align-top me-2"
             alt="E-FIR Logo"
           />
-          {isAdmin ? 'E-FIR Police Admin' : 'E-FIR Platform'}
+          {isAdmin ? 'E-FIR Police Admin' : 'E-FIR'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

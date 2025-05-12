@@ -15,7 +15,7 @@ const Header = ({ user, logout, isAdmin = false }) => {
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img
-            src="/assets/images/police-badge.png"
+            src="/assets/images/logo.png"
             width="30"
             height="30"
             className="d-inline-block align-top me-2"

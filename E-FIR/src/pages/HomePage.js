@@ -86,20 +86,20 @@ const HomePage = ({ user, logout }) => {
         {/* About Section - Added to the logged-in view */}
         <section id="about-section" className="py-5 bg-light">
           <Container>
-            <h2 className="text-center mb-4">About eFIR</h2>
+            <h2 className="text-center mb-4">About E-FIR</h2>
             <Row className="justify-content-center">
               <Col md={10} lg={8}>
                 <p className="text-center">
-                  eFIR is an advanced FIR Management Platform designed to streamline the process of filing 
+                  E-FIR is an advanced FIR Management Platform designed to streamline the process of filing 
                   and tracking First Information Reports. Our system connects citizens directly with law 
                   enforcement agencies, enabling faster response times and more efficient case management.
                 </p>
                 <p className="text-center">
-                  With eFIR, citizens can file complaints online without visiting a police station, 
+                  With E-FIR, citizens can file complaints online without visiting a police station, 
                   track the status of their complaints in real-time, and receive timely updates on the investigation.
                 </p>
                 <p className="text-center">
-                  For law enforcement, eFIR provides a centralized database of all complaints, 
+                  For law enforcement, E-FIR provides a centralized database of all complaints, 
                   efficient case management tools, and analytics to help identify trends and allocate resources effectively.
                 </p>
               </Col>
@@ -153,7 +153,7 @@ const HomePage = ({ user, logout }) => {
       {/* About Section */}
       <section id="about-section" className="py-5">
         <Container>
-          <h2 className="text-center mb-4">About eFIR</h2>
+          <h2 className="text-center mb-4">About E-FIR</h2>
           <Row className="justify-content-center">
             <Col md={10} lg={8}>
               <p className="text-center">
